@@ -12,7 +12,7 @@
 JS - the most popular realization; used by browser
 
 **Current standart version** - ES5  
-Also there is Mozilla JS - 1.5, 1.8 and Google V8 - 3.0
+Also there is Mozilla JS - 1.5 (ES3), 1.8 and Google V8 - 3.0
 
 ##Advantages and Disadvantages
 
@@ -21,7 +21,11 @@ Also there is Mozilla JS - 1.5, 1.8 and Google V8 - 3.0
 - versatility
 - client-side
 - relatively fast on client
+- prototypes inheritance
+- allow functional programming techniques
+- closures
 
 **cons**
 - security issues
 - different rendering
+- have some errors
