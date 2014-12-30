@@ -106,3 +106,56 @@ app.iterate(strObj);
 //>0 = s - string
 //>1 = t - string
 //>2 = r - string
+
+console.log('some fun with objects');
+var o1 = { //reference to object
+	prop1: 1,
+	prop2: 2
+};
+var o2 = o1; //reference to the same object as o1
+var o3 = { //it's reference to object identical to o1, but it's another object
+	prop1: 1,
+	prop2: 2
+};
+console.log('o1 - ', o1);
+console.log('o2 - ', o2);
+console.log('o3 - ', o3);
+console.log('o1 === o2 - ', o1 === o2);
+console.log('o1 === o3 - ', o1 === o3);
+
+o1.prop1 = 42;
+o2.prop2 = 42;
+console.log('o1 - ', o1);
+console.log('o2 - ', o2);
+console.log('o3 - ', o3);
+console.log('o1 === o2 - ', o1 === o2);
+console.log('o1 === o3 - ', o1 === o3);
+
+console.log('some fun with arrays');
+var a1 = [1,2,3],
+	a2 = a1,
+	a3 = [1,2,3];
+
+console.log('a1=', a1);
+console.log('a2=', a2);
+console.log('a3=', a3);
+console.log('a1===a2 - ', a1===a2);
+console.log('a1===a3 - ', a1===a3);
+//---???---
+//stringS = 'asdasd';
+//>"asdasd"
+
+//stringS.prototype
+//undefined
+
+//Object.getPrototypeOf(stringS)
+//VM1058:2 Uncaught TypeError: Object.getPrototypeOf called on non-object
+
+//stringO = new String('asdfdsf')
+//String {0: "a", 1: "s", 2: "d", 3: "f", 4: "d", 5: "s", 6: "f", length: 7, [[PrimitiveValue]]: "asdfdsf"}
+
+//stringO.prototype
+//undefined
+
+//Object.getPrototypeOf(stringO)
+//String {length: 0, [[PrimitiveValue]]: ""}
