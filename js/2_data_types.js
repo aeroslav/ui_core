@@ -16,10 +16,10 @@ var obj_lit = {
 console.log('---obj_lit');
 iterate(obj_lit);
 //>object
-//>prop1 = 1
-//>prop2 = qwe
-//>prop3 is array: [ 1,a,true ]
-//>prop4 = true
+//>prop1 = 1 - number
+//>prop2 = qwe - string
+//>prop3 = [ 1,a,true ] - array
+//>prop4 = true - boolean
 
 //-constructor
 var obj_Obj = new Object();
@@ -38,8 +38,8 @@ var obj_cons = new CustomObj(42,'qwe');
 console.log('---obj_cons');
 iterate(obj_cons)
 //>object
-//>prop1 = 42
-//>prop2 = qwe
+//>prop1 = 42 - number
+//>prop2 = qwe - string
 
 //-Object.create(prototype)
 //Object.create(prototype[, propertiesObject])
@@ -54,7 +54,7 @@ var obj_create = Object.create(CustomObj.prototype, {
 console.log('---obj_create');
 iterate(obj_create)
 //>object
-//>prop3 = 10
+//>prop3 = 10 - number
 
 //Object.defineProperty(obj, prop, descriptor)
 Object.defineProperty(CustomObj.prototype, "hiddenProp", {enumerable: false, value: "i am hidden"});
@@ -64,16 +64,16 @@ console.log('value of hiddenProp = '+obj_cons.hiddenProp);
 
 //--function for logging objects
 function iterate(o) {
-	console.log(typeof o);
+	console.log(typeof o); //typeof returns string with type of operand
 	if (typeof o == 'object') {
 		if ((o !== null) && (Object.getOwnPropertyNames(o).length>0)) { //Object.getOwnPropertyNames(obj) - returns enumerable and non-enumerable own properties of obj
 			var propStr = '';
 			for (prop in o) {
 				if (o.hasOwnProperty(prop)) {
-					if (o[prop] instanceof  Array) {
-						propStr = prop + ' is array: [ ' + o[prop] + ' ]';
+					if (o[prop] instanceof  Array) { //'a instanceof b' checks if 'a' has prototype 'b' in its prototype chain
+						propStr = prop + ' = [ ' + o[prop] + ' ] - array';
 					} else {
-						propStr = prop + ' = ' + o[prop];
+						propStr = prop + ' = ' + o[prop] + ' - ' + typeof o[prop];
 					}
 					console.log(propStr);
 				}
