@@ -17,10 +17,23 @@ var app = {
         result = result.slice(0,-1);
         result += ']';
         return result;
+    },
+    sum: function () { //refactor to sum arrays
+        var result = Array.prototype.filter.call(arguments, function(el){
+            if (typeof el == 'number') {
+                return true;
+            } else {
+                return false;
+            };
+        }),
+        sum = 0;
+        sum = result.reduce(function(sum, el){
+            return sum + el;
+        });
+        return sum;
     }
-
-    //debugger; -- can helps debug js; pauses scripts if devtools is open
 };
+//debugger; -- can helps debug js; pauses scripts if devtools is open
 
 var arr = [
     [1,2,3],
@@ -227,7 +240,7 @@ console.log(app.arrOut(a1));
 //> [6,5,4,3,2,[z1,w1,e1],z1,11]
 
 //-filter (ES5)
-// creates new array by filtering, use callback for that test
+// creates new array by filtering, using callback for that test
 console.log('----------------------------filter');
 a1 = a1.filter(function(el){
     if (el instanceof Array) {
@@ -242,11 +255,17 @@ console.log(app.arrOut(a1));
 //-reduce (ES5)
 // execute callback on every el and accumulate result to accumulator
 console.log('----------------------------reduce');
-var sum = 0;
-sum = a1.reduce(function(sum,el){
+tmp = 0;
+tmp = a1.reduce(function(tmp,el){
     if (typeof el == 'number') {
-        return sum + el;
+        return tmp + el;
     } else
-        return sum;
+        return tmp;
 });
-console.log(sum);
+console.log(tmp);
+//> 31
+
+// methods above are not works with collections, like 'arguments' inside function.
+//to use them, we need to 'call' them.
+console.log('----------------------------call methods for hash');
+console.log(app.sum(1,2,3));
