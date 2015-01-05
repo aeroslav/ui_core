@@ -39,22 +39,28 @@ var app = {
     },
     /////////////!!!!!!!!!!!!!!!!!!!
     arrayOutput: function(a) {
-        var nesting = arguments[1]?arguments[1]:0;
-        console.log(nesting);
+        var nesting = arguments[1]?arguments[1]:0; //inside function we can use local array 'arguments' with all args passed to function
+        var indent = '';                           //(not only declarated, but all that really passed)
+        
+        //debugger; -- can help debug js; pause scripts if devtools is open
+
+        //console.log(nesting);
+        for (var i = 0; i<nesting; i++)
+            indent+='>';
+
+        console.log('arr open');
         if (!(a instanceof Array)) {
+            console.log(a);
             return false;
-        }
+        };
         for (var i = 0; i<a.length; i++) {
             if (a[i] instanceof Array) {
                 this.arrayOutput(a[i], nesting+1);
             } else {
-                var indent = '';
-                for (var i = 0; i<nesting; i++)
-                    indent+='>';
-                    console.log(indent);
                 console.log(indent+' '+a[i]);
             }
-        }
+        };
+        console.log('arr close');
     }
 }
 //-literal declaration
@@ -184,15 +190,18 @@ console.log('a3=', a3);
 console.log('a1===a2 - ', a1===a2);
 console.log('a1===a3 - ', a1===a3);
 
-//some complex arrays
-var complex_array = [
-[o1,o2,o3],[o2,o1,o3],[o2,o3,o1]
-];
-console.log(complex_array);
-
+console.log(' ');
 var multiDimArr = [
     [1,2,3],
     [[1,2],2,3],
     [1,[1,2,3,[1,2]],3]
 ];
+console.log('Multidimensional array output by default');
+console.log(multiDimArr);
+//>[Array[3], Array[3], Array[3]]
+console.log('Multidimensional array output with custom method');
 app.arrayOutput(multiDimArr);
+//> arr open
+//> >1
+//> >2
+// etc.
