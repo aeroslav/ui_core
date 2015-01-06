@@ -256,11 +256,11 @@ console.log(app.arrOut(a1));
 // execute callback on every el and accumulate result to accumulator
 console.log('----------------------------reduce');
 tmp = 0;
-tmp = a1.reduce(function(tmp,el){
+tmp = a1.reduce(function(t,el){
     if (typeof el == 'number') {
-        return tmp + el;
+        return t + el;
     } else
-        return tmp;
+        return t;
 });
 console.log(tmp);
 //> 31
@@ -269,3 +269,4 @@ console.log(tmp);
 //to use them, we need to 'call' them.
 console.log('----------------------------call methods for hash');
 console.log(app.sum(1,2,3));
+//> 6
