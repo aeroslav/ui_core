@@ -66,29 +66,35 @@ var books = [
         },
         printRecord: function(el){
             var df = document.createDocumentFragment(),
-                rec, title, author, descr;
+                rec,
+                recAttr = {
+                    recNames: [],
+                    recEls: [],
+                    tags: [],
+                    lengths: [],
+                    init: function(tags,lengths,exObj){
+                        for (var key in exObj) {
+                            this.recNames.push(key);
+                            this.recEls.push('');
+                        }
+                        this.tags = tags;
+                        this.lengths = lengths;
+                    }
+                };
+                /*rec, title, author, descr;*/
             if (this.isObject(el)&&(el.title !== '')) {
                 rec = document.createElement('li'),
-                title = document.createElement('span');
-                author = document.createElement('span');  //clone не работает!
-                descr = document.createElement('p');
 
-                console.log(el.title);
-                console.log(el.author);
-                console.log(el.descr);
+                recAttr.init(['span','span','span'], [25,25,150], this.booksList[0]);
 
-                title.innerHTML = this.truncStr(el.title,25);
-                author.innerHTML = this.truncStr(el.author,25);
-                descr.innerHTML = this.truncStr(el.description,150);
+                recAttr.recNames.forEach(function(arrEl,i){
+                    recAttr.recEls[i] = document.createElement(recAttr.tags[i]);
+                    recAttr.recEls[i].innerHTML = this.truncStr(el[arrEl],recAttr.lengths[i]);
+                    recAttr.recEls[i].className = 'book-' + arrEl;
+                    rec.appendChild(recAttr.recEls[i]);
+                }, this);
 
-                title.classList.add('book-title');
-                author.classList.add('book-author');
-                descr.classList.add('book-descr');
-                rec.classList.add('book', 'cf');
-
-                rec.appendChild(title);
-                rec.appendChild(author);
-                rec.appendChild(descr);
+                rec.className = 'book cf';
                 df.appendChild(rec);
 
                 return df;
