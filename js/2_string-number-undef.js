@@ -87,3 +87,43 @@ console.log(isFinite(1/0));
 //> false
 console.log(isFinite(10/10));
 //> true
+
+
+//--Conditions
+console.log('CONDITIONS');
+var a,b;
+
+a = 1; b = 2;
+console.log('1 - 2');
+console.log('true && true = ',a&&b);
+console.log('true || true = ', a||b);
+//> 2
+//> 1
+a = 1; b = 0;
+console.log('1 - 0');
+console.log('true && false = ',a&&b);
+console.log('true || false =', a||b);
+//> 0
+//> 1
+a = 0; b = 1;
+console.log('0 - 1');
+console.log('false && true = ',a&&b);
+console.log('false || true =', a||b);
+//> 0
+//> 1
+a = 0; b = null;
+console.log('0 - null');
+console.log('false && false = ',a&&b);
+console.log('false || false ', a||b);
+//> 0
+//> null
+
+//can fn return a value of ternary opr
+console.log('TERNARY');
+function returnTernar(a,b) {
+    return (a==b)?10:'ha!';
+}
+console.log(returnTernar(1,1));
+//> 10
+console.log(returnTernar(1,2));
+//> ha!
