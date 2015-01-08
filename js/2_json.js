@@ -81,7 +81,7 @@ var books = [
                         this.lengths = lengths;
                     }
                 };
-                /*rec, title, author, descr;*/
+                
             if (this.isObject(el)&&(el.title !== '')) {
                 rec = document.createElement('li'),
 

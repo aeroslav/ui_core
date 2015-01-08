@@ -1,6 +1,12 @@
--5	Arrays
+-5	Arrays, JSON
 	+4	общие методы работы с массивами
 	+4	методы из ES5
 	+4	аналоги методов из ES5 на _
 	+-4	работа с коллекциями типа arguments при помощи этих методов
-	-4	обработка json'а с выводом в список
+	+-4	обработка json'а с выводом в список
+-5	Data types
+	+-4	string
+		-3	substr, match, split
+	+-4	numbers
+		-3	parse*
+	+-4	undefined cases

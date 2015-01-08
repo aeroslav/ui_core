@@ -17,6 +17,9 @@ var app = {
         var propStr = '';
         var oType = this.detectType(o);
 
+
+    
+
         console.log('-----=====-----');
         console.log(oType);
 
