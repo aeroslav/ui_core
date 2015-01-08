@@ -121,9 +121,35 @@ console.log('false || false ', a||b);
 //can fn return a value of ternary opr
 console.log('TERNARY');
 function returnTernar(a,b) {
-    return (a==b)?10:'ha!';
+    return (a === b)?10:'ha!';
 }
 console.log(returnTernar(1,1));
 //> 10
 console.log(returnTernar(1,2));
 //> ha!
+console.log('-----------');
+nmb1 = 0;
+nmb2 = null;
+str = 'str';
+a = nmb1||nmb2||str;
+console.log(a);
+
+//-guard
+var obj = {
+    prop: 1,
+    fn: function(){
+        console.log('Did you call me?');
+    }
+}
+if (obj && obj.prop) {
+    obj.fn();
+} else {
+    console.log('silence...');
+}
+//> Did you call me?
+if (obj && obj.prop2) {
+    obj.fn();
+} else {
+    console.log('silence...');
+}
+//> silence...

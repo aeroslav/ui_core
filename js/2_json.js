@@ -46,7 +46,7 @@ var books = [
         booksList: null,
         truncStr: function(str,lng) {
             if (str.length>lng) {
-                str = str.slice(0,lng) + '&hellip;';
+                str = str.substr(0,lng) + '&hellip;';
                 return str;
             } else
                 return str;
