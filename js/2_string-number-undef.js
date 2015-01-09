@@ -88,6 +88,12 @@ console.log(isFinite(1/0));
 console.log(isFinite(10/10));
 //> true
 
+var n = new Number(1/3);
+console.log(n);
+console.log(n.toFixed(3));
+//> Number {[[PrimitiveValue]]: 0.3333333333333333}
+//> 0.333
+
 
 //--Conditions
 console.log('CONDITIONS');

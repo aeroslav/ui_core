@@ -60,30 +60,54 @@ console.log('after fn obj.prop == ', obj.prop);
 //> after fn obj.prop ==  ext obj prop changed
 
 //--SCOPE
-console.log('SCOPE');
-var s = 1;
+console.log('\nSCOPE');
+var s = 'declared globally';
 var b = (function scopeTest(){
-    var s = 2, //redefine var s for inner fn scope
-        sInside = 'sInside';
-    console.log('s inside ==', s);
+    var s = 'declared in scopeTest', //redefine var s for inner fn scope
+        s2 = 'declared in scopeTest';
+    console.log('s inside scopeTest ==', s);
+    //> s inside scopeTest == declared in scopeTest
+    console.log('s2 inside scopeTest ==', s2);
+    //> s2 inside scopeTest == declared in scopeTest
 
     function scopeTestInner(a) {
-        console.log(sInside);
-        return 10*a;
+        console.log('s2 inside scopeTestInner ==', s2);
+        //> s2 inside scopeTestInner == declared in scopeTest
+        return a + ' --this added in scopeTestInner--';
     };
-    console.log('scopeTestInner ==', scopeTestInner(3));
+    console.log('scopeTestInner ==', scopeTestInner('passed argument'));
+    //> scopeTestInner == passed argument --this added in scopeTestInner--
 
-    var scopeTestOnlyInner = function () {
-        return 2*s;
+    var scopeTestOnlyInner = function (s) {
+        return s + ' --this added in scopeTestOnlyInner--';
     };
-    console.log('scopeTestOnlyInner ==', scopeTestOnlyInner(s));
-    //> scopeTestInner == 4
+    console.log('scopeTestOnlyInner ==', scopeTestOnlyInner('passed argument'));
+    //> scopeTestOnlyInner == passed argument --this added in scopeTestOnlyInner--
     return scopeTestInner;
 })();
-console.log('s outside ==', s);
-//> 1
-//console.log('sInside ==', sInside); - throw error 'sInside is not defined'
 
-//> 2
+//console.log('s2 ==', s2); - throw error 's2 is not defined'
 //scopeTestInner(s); - error, this fn doesn't present in current scope
-console.log('returnedFromScopeTest ==', b(s));
+
+console.log('returned From Scope Test ==', b(s));
+//> returnedFromScopeTest == declared globally --this added in scopeTestInner--
+
+//--CLOSURE
+console.log('\nCLOSURE');
+function summator(startSum){
+    var currentSum = startSum;
+    return function(toSum) {
+        return currentSum += toSum;
+    }
+};
+var sum1 = summator(0);
+console.log(sum1(10));
+console.log(sum1(2));
+//> 10
+//> 12
+
+var sum2 = summator(100);
+console.log(sum2(1));
+console.log(sum2(2));
+//> 101
+//> 103
