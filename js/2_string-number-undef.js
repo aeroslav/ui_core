@@ -50,8 +50,8 @@ console.log(str.split(','));
 console.log(str.split(' '));
 //> ["str", "qwe,rty", "uio,zxc"]
 
-//-match(regexp) - returns array of matched substrs, or null if no matches;
-//-search(regexp) - says if the string matches regexp
+//-str.match(regexp) - returns array of matched substrs, or null if no matches;
+//-str.search(regexp) - says if the string matches regexp
 //-if only first match needed - RegExp.exec()
 str = '1qwe asd 2zxc 3rty fgh';
 console.log(str.match(/\d[A-z]{1,}\s|\n/gi));
