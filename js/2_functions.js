@@ -111,3 +111,113 @@ console.log(sum2(1));
 console.log(sum2(2));
 //> 101
 //> 103
+
+//--apply, call, bind
+console.log('\napply, call, bind');
+var obj2 = {
+    a: 1,
+    b: 2,
+    fn: function (arg) {
+        return Math.pow(arg + this.a, this.b);
+    }
+};
+var obj3 = {
+    a: 2,
+    b: 2
+};
+console.log( obj2.fn(1) );
+//> 4
+console.log( obj2.fn.call(obj3,1) ); //-call fn from obj2 for obj3 as this; call accepts a LIST of arguments
+//> 9
+console.log( obj2.fn.apply(obj3,[1]) ); //-apply(thisArg[, ArgsArray])
+//> 9
+var boundForObj3 = obj2.fn.bind(obj3); //-bind creates new fn with this set to its argument
+console.log( boundForObj3(2) );
+//> 16
+
+//>---STRICT MODE---
+console.log('\nSTRICT MODE');
+function imStrict(a) { //arguments should have unique names
+    'use strict';
+    console.log('strict');
+
+    //var implements, interface, let, package, private, protected, public, static, yield, class, enum, export, extends, import, super; //> Uncaught SyntaxError: Unexpected strict mode reserved word
+
+    console.log('1. creating global var accidentally -', 'will cause error');
+    //aVar = 'Accidentally I\'ve create a global variable.'; //> Uncaught ReferenceError: aVar is not defined
+
+    Object.defineProperty(obj, 'dProp', {value: 42, writable: false});
+    console.log('2. assign that should silently fail -','will throw error');
+    //obj.dProp = 43; //> Uncaught TypeError: Cannot assign to read only property 'dProp' of #<Object>
+
+    //delete Object.prototype; //> Uncaught TypeError: Cannot delete property 'prototype' of function Object() { [native code] }
+
+    console.log('3. duplicated properties in object -', 'not allowed');
+    //var objDup = { //object with duplicated properties
+        //prop: 1,
+        //prop: 2
+    //};
+    //> Uncaught SyntaxError: Duplicate data property in object literal not allowed in strict mode
+
+    console.log('4. octal literals -', 'not allowed');
+    //var octal = 015; //> Uncaught SyntaxError: Octal literals are not allowed in strict mode.
+
+    console.log('5. \'this\' is NOT forced to be an object');
+    function retThis(a) {
+        //console.log(retThis.arguments); //> Uncaught TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them
+        return this;
+    }
+    console.log(retThis.call(1)); //no boxing
+    //> 1
+
+    //if (true){
+    //    function f() { console.log('f in if statement'); } //> Uncaught SyntaxError: In strict mode code, functions can only be declared at top level or immediately within another function.
+    //    f();
+    //}
+};
+
+function imNotStrict(a) { //arguments may have same names, but only last will be visible, others available with 'arguments[]'
+    console.log('non-strict');
+
+    var implements, interface, let, package, private, protected, public, static, yield; //ok for non-strict
+    aVar = 'Accidentally I\'ve create a global variable.';
+    console.log('1. creating global var accidentally -', aVar);
+    //> 
+
+    Object.defineProperty(obj, 'dProp', {value: 42, writable: false});
+    obj.dProp = 43;
+    console.log('2. assign that should silently fail -', 'just silent, obj.dProp ==' , obj.dProp);
+    //> 2. assign that should silently fail - just silent, obj.dProp == 42
+
+    delete Object.prototype; // silently fails
+
+    console.log('3. duplicated properties in object -', 'no error, but only value of last duplicated properties has meaning');
+    var objDup = { //object with duplicated properties
+        prop: 1,
+        prop: 2
+    };
+    console.log(objDup.prop); //> 2
+
+    console.log('4. octal literals -', 'allowed');
+    var octal = 015;
+
+    console.log('5. \'this\' is forced to be an object');
+    function retThis(a) {
+        console.log(retThis.arguments); //> []
+        return this;
+    }
+    console.log(retThis.call(1)); //boxing
+    //>  Number {[[PrimitiveValue]]: 1}
+
+    if (true){
+        function f() { console.log('f in if statement'); } // ok for non-strict
+        f(); //> f in if statement
+    }
+}
+
+imStrict(1);
+//> strict
+//> 1. creating global var accidentally - will cause error
+imNotStrict(1);
+//> non-strict
+//> 1. creating global var accidentally - Accidentally I've create a global variable.
