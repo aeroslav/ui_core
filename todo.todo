@@ -13,4 +13,12 @@
 -5	10 Jan
 	+-4	call-apply-bind
 	+-4	obj literal
-	-4	strict mode
+	+-4	strict mode
+	+-4	window (HTML5)
+	+-4	screen
+	+-4	location
+	-4	history, historyAPI
+	+-4	navigator
+	+-4	popup alerts, promts
+	+-4	timing
+	-4	cookies
