@@ -8,9 +8,10 @@ console.log( window.fullScreen ); //undefined
 console.log( window.parent ); //> Window {top: Window, window: Window, location: Location, external: Object, chrome: Object…} //itself?
 console.log( window.scrollbars ); //> BarProp {visible: true} //visibility of scrollbars
 console.log( window.scrollX, window.scrollY ); //> 0 0 //returns the number of pixels that doc was scrolled
-//window.alert('alert!'); - popup alert
-//confirm('asd?'); - will show confirm popup with ok-cancel btns
-//window.close(); - will close window
+//window.alert('alert!'); //popup alert
+//confirm('asd?'); //will show confirm popup with ok-cancel btns
+//var promptResult = prompt('Text', 'Value'); //show prompt dialog with OK-Cancel btns
+//window.close(); //will close window
 setTimeout(function(){
     scrollTo(0,10); // - scrolls to specified coords
     scrollBy(0,10); // - scrolls by specified coords
