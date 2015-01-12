@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Core testing</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        ul, li, span {
+            padding: 0;
+            margin: 0;
+            transition: all .2s ease-out;
+        }
+        li {
+            display: block;
+            padding: .5em;
+        }
+        span {
+            display: block;
+            margin: .5em;
+        }
+        .list {
+            width: 100%;
+        }
+        .listItem {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<h1>DOM</h1>
+<!-- <p>Look in the console!</p> -->
+<ul class='list'>
+    <li class='listItem'>
+        <span>OOCSS</span>
+    </li>
+    <li class='listItem'>
+        <span id='specialNode'>BEM</span>
+    </li>
+    <li class='listItem'>
+        <span>SMACSS</span>
+    </li>
+    <li class='listItem'>
+        <span>MCSS</span>
+    </li>
+</ul>
+<script src='../js/4_DOM.js'></script>
+</body>
+</html>

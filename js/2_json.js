@@ -139,7 +139,7 @@ var books = [
     }
 
     var d = (function () {
-        // privat area
+        // private area
         var b = 'hey';
 
         // public area
