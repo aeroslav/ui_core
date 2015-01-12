@@ -10,16 +10,23 @@ var historyController = {
         'http://subtlepatterns.com/patterns/noisy_grid.png',
         'http://subtlepatterns.com/patterns/whitediamond.png'
     ],
-    init: function() {
+    getElems: function() {
         this.btnsHistory = document.querySelectorAll('.history'),
         this.btnsBgs = document.querySelectorAll('[data-bg]');
-
-        Array.prototype.forEach.call(this.btnsHistory, function(e){
-            e.addEventListener('click', historyController.historyHandler);
-        });
-        Array.prototype.forEach.call(this.btnsBgs, function(e){
-            e.addEventListener('click', historyController.bgHandler);
-        });
+    },
+    bindEvents: function() {
+        var bh = this.btnsHistory,
+            bbg =this.btnsBgs;
+        for (var i = 0; i<bh.length; i++) {
+            bh[i].addEventListener('click', this.historyHandler);
+        }
+        for (var i = 0; i<bbg.length; i++) {
+            bbg[i].addEventListener('click', this.bgHandler);
+        }
+    },
+    init: function() {
+        this.getElems();
+        this.bindEvents();
     },
     historyHandler: function(ev){
         if (ev.target.className.search(/prev/gi) !== -1) {
@@ -44,7 +51,7 @@ var historyController = {
 
 window.addEventListener('load', function(e) {
     console.log('history stack length =', window.history.length);
-    if (location.hash) {
+    if (location.hash) { // <<<<<<<<<<------------------------------------------short???
         document.body.style.backgroundImage = 'url(' + historyController.bgs[parseInt(location.hash.substr(1),10)] + ')';
     };
 });

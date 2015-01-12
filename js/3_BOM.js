@@ -90,3 +90,16 @@ console.log('href = http://www.w3schools.com/jsref/obj_location.asp',
 
 //-replace() - reloads current document
 //location.replace();
+
+//--cookies
+console.log('\n---cookies---');
+
+var cDate = new Date();
+cDate.setHours(cDate.getHours()+1);
+document.cookie = 'user=frontend; expires='+cDate.toUTCString();
+console.log(document.cookie);
+//> will show current cookies, doesn't work on file://
+setTimeout(function(){
+    cDate = new Date(0);
+    document.cookie = 'user=frontend; expires=' + cDate; //clears cookie
+},5000);

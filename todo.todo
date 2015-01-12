@@ -17,8 +17,8 @@
 	+-4	window (HTML5)
 	+-4	screen
 	+-4	location
-	-4	history, historyAPI
+	+-4	historyAPI
 	+-4	navigator
 	+-4	popup alerts, promts
 	+-4	timing
-	-4	cookies
+	+-4	cookies
