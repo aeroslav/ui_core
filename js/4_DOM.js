@@ -40,7 +40,7 @@ fn[4] = function() {
     console.log('querySelectorAll');
     var e = document.querySelectorAll('.listItem');
     for (var i = 0; i<e.length; i++) {
-        e[i].style.border = '3px solid hsl(30,80%,80%)';
+        e[i].className += ' listItemHighlighted';
     }
 }
 
@@ -58,12 +58,14 @@ fn[6] = function() {
 }
 fn[7] = function() {
     console.log('-createDocumentFragment');
-    var df = document.createDocumentFragment('li');
-    df.className = 'listItem';
-    //-------------------------------------------------------------------------------here!
+    var df = document.createDocumentFragment(),
+        el = document.createElement('li'),
+        el2 = document.createElement('span');
+
+    el.className = 'listItem';
     console.log('-appendChild');
-    var el = document.createElement('span');
-    el.innerHTML = 'SCSSM (Super CSS Methodology)';
+    el2.innerHTML = 'SCSSM (Super CSS Methodology)';
+    el.appendChild(el2);
     df.appendChild(el);
     document.querySelector('.list').appendChild(df);
 };
@@ -73,6 +75,65 @@ fn[8] = function() {
     var rEl = document.createElement('strong');
     rEl.innerHTML = 'wat?';
     document.querySelector('.listItem:last-of-type').replaceChild(rEl,el);
+};
+fn[9] = function() {
+    console.log('-removeChild');
+    var el = document.querySelector('.listItem:last-of-type');
+    document.querySelector('.list').removeChild(el);
+}
+
+//--events
+fn[10] = function() {
+    console.log('--events--');
+    console.log('test custom event');
+
+    function highlightCurrentTarget(ev) {
+        console.log('catched custom event, currentTarget =', ev.currentTarget, ' target =', ev.target);
+        that = ev.currentTarget;
+        function highlight(){
+            that.style.backgroundColor = 'hsl(100, 80%, 90%)';
+        };
+        highlight();
+    };
+    document.querySelector('.list').addEventListener('custom', highlightCurrentTarget);
+    document.querySelector('.listItem').addEventListener('custom', highlightCurrentTarget);
+};
+fn[11] = function() {
+    var ev = new Event('custom', {"bubbles": true, "cancelable": false});
+    document.querySelector('.listItem>span').dispatchEvent(ev);
+}
+function colorChanger(ev,delay) {
+    var color = ev.currentTarget.style.backgroundColor,
+        that = ev.currentTarget;
+    function setNewColor() {
+        that.style.backgroundColor = 'hsl(10,70%,70%)';
+    }
+    function setPrevColor() {
+        that.style.backgroundColor = color;
+    };
+
+    setTimeout(setNewColor, delay);
+    setTimeout(setPrevColor,delay+500);
+};
+fn[12] = function() {
+    var els = document.querySelectorAll('.listItem>span');
+    for (var i = 0; i < els.length; i++) {
+        els[i].addEventListener('click', function(ev, prop) {
+            ev.stopPropagation();
+            colorChanger(ev,0);
+        });
+    };
+    els = document.querySelectorAll('.listItem');
+    for (var i = 0; i < els.length; i++) {
+        els[i].addEventListener('click', function(ev) {
+            colorChanger(ev,0);
+        });
+    };
+    document.querySelector('.list').addEventListener('click', function(ev) {
+        colorChanger(ev,200);
+    });;
+    console.log('--Events set, click any element--');
+    console.log('spans - no propagation, li - propagation');
 };
 
 //executor of fns above
@@ -84,3 +145,17 @@ timer = setInterval(function(){
         console.log('----finish----');
     }
 },300);
+
+document.querySelector('.newScript').addEventListener('click', function(e) {
+    console.log('-loading new script-');
+    var newScript = document.createElement('script');
+    newScript.setAttribute('src','../js/4_DOM_additional.js');
+    document.querySelector('body').appendChild(newScript);
+});
+document.querySelector('.newStyle').addEventListener('click', function(e) {
+    console.log('-loading new stylesheet-');
+    var newStyle = document.createElement('link');
+    newStyle.setAttribute('rel','stylesheet');
+    newStyle.setAttribute('href','../css/4_DOM_additional.css');
+    document.querySelector('head').appendChild(newStyle);
+});
