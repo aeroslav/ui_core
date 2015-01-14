@@ -16,19 +16,27 @@ var historyController = {
     },
     bindEvents: function() {
         var bh = this.btnsHistory,
-            bbg =this.btnsBgs;
+            bbg =this.btnsBgs,
+            historyHandler = this.historyHandler.bind(this);
+
         for (var i = 0; i<bh.length; i++) {
-            bh[i].addEventListener('click', this.historyHandler);
+            bh[i].addEventListener('click', historyHandler));
         }
         for (var i = 0; i<bbg.length; i++) {
             bbg[i].addEventListener('click', this.bgHandler);
         }
+
+
+        // arr.forEach(function(item){
+
+        // }, this)
     },
     init: function() {
         this.getElems();
         this.bindEvents();
     },
     historyHandler: function(ev){
+        console.log(this)
         if (ev.target.className.search(/prev/gi) !== -1) {
             window.history.back();
         };

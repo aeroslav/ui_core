@@ -1,16 +1,16 @@
--5	Arrays, JSON
++-5	Arrays, JSON
 	+4	общие методы работы с массивами
 	+4	методы из ES5
 	+4	аналоги методов из ES5 на _
 	+-4	работа с коллекциями типа arguments при помощи этих методов
 	+-4	обработка json'а с выводом в список
--5	Data types
++-5	Data types
 	+-4	string
 		-3	substr, match, split
 	+-4	numbers
 		-3	parse*
 	+-4	undefined cases
--5	10 Jan
++-5	10 Jan
 	+-4	call-apply-bind
 	+-4	obj literal
 	+-4	strict mode
@@ -22,7 +22,7 @@
 	+-4	popup alerts, promts
 	+-4	timing
 	+-4	cookies
--5	12 Jan
++-5	12 Jan
 	+-4	document
 	+-4	elements
 	+-4	HTML
@@ -32,4 +32,13 @@
 	+-4	navigation
 	+-4	nodes
 	+-4	nodelist
-	-4	script/style dynamic load
+	+-4	script/style dynamic load
+-5	14 Jan
+	-4	GET
+		-3	GET json
+		-3	parse
+		-3	append to DOM
+	-4	POST
+		-3	2 inputs + 1 textarea
+		-3	form json
+		-3	POST it

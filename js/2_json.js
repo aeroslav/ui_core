@@ -126,31 +126,10 @@ var books = [
                 return false;
             }
         }
-    },
-
-    booksStr = JSON.stringify(books);
-
-
-
-    var o = {
-        log: function () {
-            console.log('hey')
-        }
     }
 
-    var d = (function () {
-        // private area
-        var b = 'hey';
 
-        // public area
-        return {
-            log: function () {
-                console.log(b)
-            }
-        }
-    })();
-
-
+//MODULE pattern
     var MYAPP = window.component || {};
 
     MYAPP.d = (function () {
@@ -166,22 +145,8 @@ var books = [
     })();
 
 
-    var c = 'fdf';
-
-    var fn = (function (a,b) { //[[scope]] -> link
-        // Lexical envinronment {a,b}
-        // Lexical envinronment {variables}
-        var inner = 'inner '+a+' '+b;
-        console.log(c);
-
-        return function () { //[[scope]] -> link
-            console.log(inner);
-        }
-    })(1,1);
-    fn();
-
-
 //------------
+var booksStr = JSON.stringify(books);
 printer.elName = document.querySelector('.bookslist');
 printer.loadList(booksStr);
 printer.renderToDOM();

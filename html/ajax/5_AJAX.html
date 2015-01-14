@@ -3,14 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>JS Core testing</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>AJAX</h1>
-    <form action="#">
-        <input type="text" id="txtField">
-        <button class="requestSender">Send message</button>
-    </form>
-    <p>Look in the console!</p>
+
+    <div class="wrapper">
+        <h1>AJAX</h1>
+        <p>
+            <button class="btn-getJSON">GET JSON</button><br>
+        </p>
+            <div class="bookslist"></div>
+        <hr>
+
+        <p>
+            <input type="text" id="txtField1"><br>
+            <input type="text" id="txtField2"><br>
+            <textarea  id="txtArea"></textarea><br>
+        </p>
+
+        <p>
+            <button type="submit" class="requestSender">Send message</button><br>
+        </p>
+
+    </div>
     <script src='5_AJAX.js'></script>
 </body>
 </html>
