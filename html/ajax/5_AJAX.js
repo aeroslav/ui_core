@@ -113,6 +113,7 @@ var ajax = (function(){ //<<<<<<<<---------------------------------- If we need 
         send: function(reqType, reqURL, reqBody, callb) {
             XHR.open(reqType, reqURL, true);
             XHR.onreadystatechange = this.responseHandler(callb);
+            XHR.setRequestHeader('Content-Type', 'text/plain');
             XHR.send(reqBody);
         }
     };
@@ -136,4 +137,19 @@ document.querySelector('.btn-getJSON').addEventListener('click', function(ev){
 });
 
 //2. POST
-//---
+document.querySelector('.btn-postJSON').addEventListener('click', function(ev) {
+    var url = 'http://localhost:8080/processJSON',
+        login = document.querySelector('#login').value,
+        pwd = document.querySelector('#pwd').value,
+        comment = document.querySelector('#comment').value,
+        postBody = 'login=' + encodeURIComponent(login) +
+            '&pwd=' + encodeURIComponent(pwd) +
+            '&comment=' + encodeURIComponent(comment);
+
+    ev.stopPropagation();
+    ajax.send('POST', url, postBody, function(resp, contentType){
+        if (contentType === 'text/xml') {
+            document.querySelector('.responseText').innerHTML = resp;
+        }
+    });
+});

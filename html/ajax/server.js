@@ -6,15 +6,31 @@ var file = new statServ.Server('.');
 
 function reqHandler(req, res) {
 
-    var commonResponse = '<!DOCTYPE html><html><head><title>response</title></head><body><h1>Response</h1>for your request</body></html>';
+    var postBody = '',
+        post = null,
+        text = '';
 
     if (req.method === "GET") {
-        //var params = url.parse(req.url, true);
         file.serve(req, res);
     } else if (req.method === "POST") {
-        res.writeHead(200, {'Content-Type': 'text/xml'});
-        res.write(commonResponse);
-        res.end();
+        if (req.url === '/processJSON') {
+            req.on('data', function(chunk){
+                postBody += chunk;
+            })
+            req.on('end', function(){
+                console.log(postBody);
+                post = qs.parse(postBody);
+                if (post.login === 'admin' && post.pwd === '123') {
+                    res.writeHead(200, {'Content-Type': 'text/xml'});
+                    res.write('access granted!');
+                    res.end();
+                } else {
+                    res.writeHead(200, {'Content-Type': 'text/xml'});
+                    res.write('access denied!');
+                    res.end();
+                }
+            });
+        }
     }
 };
 
