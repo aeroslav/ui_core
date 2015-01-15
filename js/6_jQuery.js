@@ -21,8 +21,12 @@ var printer = {
         } else
             return false;
     },
-    loadList: function(json){ //passed string parsed to JSON object and stored to inner var.
-        this.booksList = JSON.parse(json);
+    loadList: function(list){ //passed string parsed to JSON object and stored to inner var.
+        if (list instanceof Object) {
+            this.booksList = list;
+        } else {
+            this.booksList = JSON.parse(list);
+        }
     },
     printRecord: function(el){
         var df = document.createDocumentFragment(),
@@ -45,7 +49,7 @@ var printer = {
         if (this.isObject(el)&&(el.title !== '')) {
             rec = document.createElement('li'),
 
-            recAttr.init(['span','span','span'], [25,25,150], this.booksList[0]);
+            recAttr.init(['span','span','p'], [25,25,150], this.booksList[0]);
 
             recAttr.recNames.forEach(function(arrEl,i){
                 recAttr.recEls[i] = document.createElement(recAttr.tags[i]);
@@ -89,60 +93,41 @@ var printer = {
 };
 //-- object for working with json
 
-var ajax = (function(){
-
-    var XHR = new XMLHttpRequest();
-
-    return {
-        responseHandler: function(callb) {
-            return function(){
-                var contentType = '';
-                console.log('ready state changed: ', XHR.readyState);
-                if (XHR.readyState !== 4) return;
-
-                console.log(XHR.status);
-                if (XHR.status !== 200) {
-                    console.log('request returned error');
-                    return;
-                }
-
-                contentType = XHR.getResponseHeader('Content-Type');
-                callb(XHR.responseText, contentType);
-            };
-        },
-        send: function(reqType, reqURL, reqBody, callb) {
-            XHR.open(reqType, reqURL, true);
-            XHR.onreadystatechange = this.responseHandler(callb);
-            XHR.setRequestHeader('Content-Type', 'application/json');
-            XHR.send(reqBody);
-        }
-    };
-})();
-
+//jQuery realization of 5_AJAX
 
 //init json printer
 printer.elName = document.querySelector('.bookslist');
 
 //btns handlers adding
 //1. GET
-document.querySelector('.btn-getJSON').addEventListener('click', function(ev){
-    ev.stopPropagation();
+$('.btn-getJSON').click( function(ev){
     var url = 'http://localhost:8080/books.json';
-    console.log(url);
-    ajax.send('GET', url, null, function(resp, contentType){
-        if (contentType === 'application/json') {
+
+    $.ajax({
+        url: url,
+        type: 'GET'
+    }).done(function(resp,status,xhr){
+        if (xhr.getResponseHeader('Content-Type') === 'application/json') {
+            $('.bookslist').empty();
             printer.loadList(resp);
             printer.renderToDOM();
-        };
+        }
+    }).done(function(){
+        if ($('p').first().children('.tip').length == 0) {
+            $('p').first().append('<span class=\'tip\'>Try to hover on any element of list</span>');
+        }
+        bindEvents();
+    }).fail(function(){
+        console.log('something gone wrong!');
     });
 });
 
 //2. POST
-document.querySelector('.btn-postJSON').addEventListener('click', function(ev) {
+$('.btn-postJSON').click( function(ev) {
     var url = 'http://localhost:8080/processJSON',
-        login = document.querySelector('#login').value,
-        pwd = document.querySelector('#pwd').value,
-        comment = document.querySelector('#comment').value,
+        login = $('#login').val(),
+        pwd = $('#pwd').val(),
+        comment = $('#comment').val(),
         postJSON = [
             {
                 "login": null,
@@ -157,10 +142,42 @@ document.querySelector('.btn-postJSON').addEventListener('click', function(ev) {
     postJSON["comment"] = encodeURIComponent(comment);
     postBody = JSON.stringify(postJSON);
 
-    ev.stopPropagation();
-    ajax.send('POST', url, postBody, function(resp, contentType){
-        if (contentType === 'text/xml') {
-            document.querySelector('.responseText').innerHTML = resp;
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: postBody,
+        contentType: 'application/json',
+        dataType: 'text',
+        success: function(resp, status, xhr) {
+            console.log(status);
+            console.log(xhr.getResponseHeader('Content-Type'));
+            if (xhr.getResponseHeader('Content-Type') === 'text/xml') {
+                $('.responseText').text(resp);
+            };
+            bindEvents();
+        },
+        error: function(xhr, status) {
+            console.log(status);
         }
     });
 });
+
+function bindEvents(){
+    $('.book').hover(function(e){
+        var offset = $(this).offset(),
+            top = offset.top,
+            left = offset.left + $(this).outerWidth() + 10;
+        $('.tooltip').css({
+            'display': 'block',
+            'top': top,
+            'left': left
+        })
+    },function(e){
+        $('.tooltip').css({
+            'display': 'none',
+        });
+    });
+    $('.book').click(function(e){
+        $(this).toggleClass('js-selected');
+    })
+}

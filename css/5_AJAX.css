@@ -56,19 +56,17 @@ input, textarea {
     margin-bottom: 1em;
     position: relative;
     top: 0;
+    background-color: #f4e3b2;
     box-shadow: 0 3px 1px -2px #444;
     transform: translateZ(0);
     transition: all .2s ease-out;
 }
-.book:nth-of-type(2n-1){
-    background-color: #d3d5d7;
-}
-.book:nth-of-type(2n){
-    background-color: #f4e3b2;
-}
 .book:hover {
     top: -2px;
     box-shadow: 0 8px 4px -3px #555;
+}
+.book.js-selected {
+    background-color: hsl(70, 75%, 90%);
 }
 .book-title, .book-author {
     display: block;
@@ -91,4 +89,28 @@ input, textarea {
     float: left;
     font-size: 1.1em;
     border-top: 1px solid #eee;
+}
+.tooltip {
+    display: none;
+    padding: .4em .8em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: sans-serif;
+    border: 2px solid hsl(210, 50%, 60%);
+    border-radius: 5px;
+    background-color: hsl(210, 15%, 85%);
+}
+.tooltip:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 5px;
+    left: -12px;
+    background-color: hsl(10, 50%, 95%);
+    border-style: solid;
+    border-width: 5px 10px 5px 0;
+    border-color: transparent hsl(210, 50%, 60%) transparent transparent;
 }
