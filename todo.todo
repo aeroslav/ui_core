@@ -33,12 +33,15 @@
 	+-4	nodes
 	+-4	nodelist
 	+-4	script/style dynamic load
--5	14 Jan
-	-4	GET
++-5	14 Jan
+	+-4	GET
 		-3	GET json
 		-3	parse
 		-3	append to DOM
-	-4	POST
+	+-4	POST
 		-3	2 inputs + 1 textarea
 		-3	form json
 		-3	POST it
+-5	15 Jan
+	-4	jQuery
+	-4	underscore.js

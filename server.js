@@ -18,9 +18,8 @@ function reqHandler(req, res) {
                 postBody += chunk;
             })
             req.on('end', function(){
-                console.log(postBody);
-                post = qs.parse(postBody);
-                if (post.login === 'admin' && post.pwd === '123') {
+                post = JSON.parse(postBody);
+                if (post["login"] === 'admin' && post["pwd"] === '123') {
                     res.writeHead(200, {'Content-Type': 'text/xml'});
                     res.write('access granted!');
                     res.end();
