@@ -85,7 +85,7 @@ var books = [
             if (this.isObject(el)&&(el.title !== '')) {
                 rec = document.createElement('li'),
 
-                recAttr.init(['span','span','span'], [25,25,150], this.booksList[0]);
+                recAttr.init(['span','span','p'], [25,25,150], this.booksList[0]);
 
                 recAttr.recNames.forEach(function(arrEl,i){
                     recAttr.recEls[i] = document.createElement(recAttr.tags[i]);

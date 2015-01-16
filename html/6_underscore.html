@@ -3,10 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>_underscore testing</title>
+    <link rel="stylesheet" href="../css/5_AJAX.css">
 </head>
 <body>
-<h1>_underscore</h1>
-<p>Look in the console!</p>
-<script src='../js/6_underscore.js'></script>
+    <div class="wrapper">
+        <div class="tooltip">Click to order</div>
+        <h1>jQuery</h1>
+        <p>
+            <button class="btn-getJSON">GET JSON</button><br>
+        </p>
+            <div class="bookslist"></div>
+        <hr>
+
+        <p>
+            <input type="text" id="login"><br>
+            <input type="text" id="pwd"><br>
+            <textarea  id="comment"></textarea><br>
+        </p>
+
+        <p>
+            <button type="submit" class="btn-postJSON">Send message</button><br>
+        </p>
+        <p class="responseText"></p>
+
+    </div>
+
+    <script src='../js/underscore-min.js'></script>
+    <script src='../js/6_underscore.js'></script>
+    <script type='text/template' class='book-template'>
+        <% function truncStr(str, lng){
+            if (str.length>lng) {
+                str = str.substr(0,lng) + '&hellip;';
+                return str;
+            } else
+                return str;
+        };
+        var keys = [];
+        for (var key in data.el) {
+            keys.push(key);
+        };
+        _.each(keys, function (key, i){ %>
+            <<%=data.tags[i]%> class='book-<%=key%>'><%=truncStr(data.el[key], data.lengths[i])%></<%=data.tags[i]%>>
+        <% }); %>
+    </script>
 </body>
 </html>

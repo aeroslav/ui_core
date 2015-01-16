@@ -131,7 +131,7 @@ console.log( obj2.fn.call(obj3,1) ); //-call fn from obj2 for obj3 as this; call
 //> 9
 console.log( obj2.fn.apply(obj3,[1]) ); //-apply(thisArg[, ArgsArray])
 //> 9
-var boundForObj3 = obj2.fn.bind(obj3); //-bind creates new fn with this set to its argument
+var boundForObj3 = obj2.fn.bind(obj3); //-bind creates new fn with 'this' set to its argument
 console.log( boundForObj3(2) );
 //> 16
 

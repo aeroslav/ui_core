@@ -18,7 +18,7 @@ var app = {
         result += ']';
         return result;
     },
-    sum: function () { //refactor to sum arrays
+    sum: function () {
         var result = Array.prototype.filter.call(arguments, function(el){
             if (typeof el == 'number') {
                 return true;
