@@ -119,6 +119,7 @@ var books = [
         },
         renderToDOM: function() {
             if (this.booksList !== null) {
+                this.elName.innerHTML = '';
                 this.sendToDOM(this.formList());
                 return true;
             } else {

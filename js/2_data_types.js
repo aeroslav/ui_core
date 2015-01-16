@@ -16,10 +16,7 @@ var app = {
     iterate: function(o) { //--function for logging objects
         var propStr = '';
         var oType = this.detectType(o);
-
-
-    
-
+        
         console.log('-----=====-----');
         console.log(oType);
 

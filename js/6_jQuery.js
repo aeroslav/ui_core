@@ -101,6 +101,7 @@ printer.elName = document.querySelector('.bookslist');
 //btns handlers adding
 //1. GET
 $('.btn-getJSON').click( function(ev){
+
     var url = 'http://localhost:8080/books.json';
 
     $.ajax({
@@ -116,7 +117,8 @@ $('.btn-getJSON').click( function(ev){
         if ($('p').first().children('.tip').length == 0) {
             $('p').first().append('<span class=\'tip\'>Try to hover on any element of list</span>');
         }
-        bindEvents();
+        $(document).trigger('eventInit');
+        //bindEvents();
     }).fail(function(){
         console.log('something gone wrong!');
     });
@@ -124,6 +126,7 @@ $('.btn-getJSON').click( function(ev){
 
 //2. POST
 $('.btn-postJSON').click( function(ev) {
+
     var url = 'http://localhost:8080/processJSON',
         login = $('#login').val(),
         pwd = $('#pwd').val(),
@@ -154,7 +157,7 @@ $('.btn-postJSON').click( function(ev) {
             if (xhr.getResponseHeader('Content-Type') === 'text/xml') {
                 $('.responseText').text(resp);
             };
-            bindEvents();
+            $(document).trigger('eventInit');
         },
         error: function(xhr, status) {
             console.log(status);
@@ -163,9 +166,9 @@ $('.btn-postJSON').click( function(ev) {
 });
 
 function bindEvents(){
-    $('.book').hover(function(e){
+    $('.book').hover(function(e){ //shorthand for setting event handler or call event
         var offset = $(this).offset(),
-            top = offset.top,
+            top = offset.top + $(this).height()/2 - 4,
             left = offset.left + $(this).outerWidth() + 10;
         $('.tooltip').css({
             'display': 'block',
@@ -177,7 +180,30 @@ function bindEvents(){
             'display': 'none',
         });
     });
-    $('.book').click(function(e){
+
+    $('.bookslist').on('click', '.book', function(e){  //delegated event handling -  if selector specifies for 'on', then event will be handled only for them
+        e.stopPropagation();
         $(this).toggleClass('js-selected');
+    });
+
+    $(document).on('keypress', function(e){
+        if (e.keyCode === 32) {
+            if ($('.js-selected').length) {
+                var fragm = $('.js-selected').clone();
+                fragm.appendTo('.bookslist');
+                fragm.trigger('domChange');
+                $('.js-selected').removeClass('js-selected');
+            }
+        }
+    });
+
+    $('.bookslist').on('domChange', '.book', function(e){  // handling custom event
+        console.log(e.target);
     })
 }
+
+$(document).ready(function(){
+    $(document).one('eventInit', function(){  //event will be handled only once
+        bindEvents();
+    });
+});

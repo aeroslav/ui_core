@@ -42,6 +42,8 @@
 		-3	2 inputs + 1 textarea
 		-3	form json
 		-3	POST it
--5	15 Jan
-	-4	jQuery
-	-4	underscore.js
++-5	15 Jan
+	+-4	jQuery
+		+-3	delegated ev
+		+-3	DOM change
+	+-4	underscore.js

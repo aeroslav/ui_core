@@ -8,7 +8,11 @@
 <body>
     <div class="wrapper">
         <div class="tooltip">Click to order</div>
-        <h1>jQuery</h1>
+        <h1>_underscore</h1>
+        <p>Look in the console</p>
+        <p>
+            <span class="mouse-x">0</span><span>X</span><span class="mouse-y">0</span>
+        </p>
         <p>
             <button class="btn-getJSON">GET JSON</button><br>
         </p>
@@ -38,12 +42,9 @@
             } else
                 return str;
         };
-        var keys = [];
-        for (var key in data.el) {
-            keys.push(key);
-        };
+        var keys = _.keys(data.el);
         _.each(keys, function (key, i){ %>
-            <<%=data.tags[i]%> class='book-<%=key%>'><%=truncStr(data.el[key], data.lengths[i])%></<%=data.tags[i]%>>
+            <<%=data.tags[i]%> class='book-<%=key%>'><%-truncStr(data.el[key], data.lengths[i])%></<%=data.tags[i]%>>
         <% }); %>
     </script>
 </body>

@@ -21,8 +21,8 @@ window.onmousemove = (function(e,delay){
         my = document.querySelector('.mouse-y'),
         eventStorage = e||window;
     var showCoord = function (){
-        mx.innerHTML = eventStorage.clientX;
-        my.innerHTML = eventStorage.clientY;
+        mx.textContent = eventStorage.clientX;
+        my.textContent = eventStorage.clientY;
         to = 0;
     };
     var showCoordThis = showCoord.bind(this);

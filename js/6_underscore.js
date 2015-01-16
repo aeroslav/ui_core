@@ -25,7 +25,7 @@ var printer = {
             tplData = {
                 el: el,
                 tags: tags,
-                lengths: lengths //<<<<<<<---------------------------- Is there are cases in which order of proprties of object breaks?
+                lengths: lengths
             }
 
             rec.className = 'book cf';
@@ -54,6 +54,7 @@ var printer = {
     },
     renderToDOM: function() {
         if (this.booksList !== null) {
+            this.elName.innerHTML = '';
             this.sendToDOM(this.formList());
             return true;
         } else {
@@ -107,7 +108,11 @@ document.querySelector('.btn-getJSON').addEventListener('click', function(ev){
     ajax.send('GET', url, null, function(resp, contentType){
         if (contentType === 'application/json') {
             printer.loadList(resp);
+            printer.booksList = _.shuffle(printer.booksList); //shuffles a list
             printer.renderToDOM();
+
+            var books = printer.booksList;
+            doSomeWith_(books);
         };
     });
 });
@@ -139,3 +144,64 @@ document.querySelector('.btn-postJSON').addEventListener('click', function(ev) {
         }
     });
 });
+
+
+//---------------------------------- TRYING SOME _ FNS ------------------------------------------
+console.log('some underscore fns');
+//emulate click on '.btn-getJSON'
+window.addEventListener('load', function(){
+    var ev = new Event('click');
+    document.querySelector('.btn-getJSON').dispatchEvent(ev);
+});
+
+function doSomeWith_(arr){
+
+    console.log( _.where(arr, {author: 'Homer'}) ); //-where() looks in array for vals that contains all key-val pairs passed in args
+    //> 0: Object
+    //> author: "Homer"
+    //> description: "Epic journey of epic hero."
+    //> title: "The Odyssey"
+
+    console.log( _.reject(arr, function(el){
+        return el.title !== '';
+    }) );
+    //> 0: Object
+    //> author: "Me"
+    //> description: "I did't write any book yet :("
+    //> title: ""
+
+    console.log( _.pluck(arr, 'title') );
+    //> ["The Odyssey", "Romeo and Juliet", "Don Quixote", "Necronomicon: the Book of Grim Rituals", "", "The Captain's Daughter", "The Holy Quran", "How to Draw Things"]
+
+    console.log( _.sample(arr, 2) );
+    //> 0: Object
+    //> author: "Me"
+    //> description: "I did't write any book yet :("
+    //> title: ""
+    //> 1: Object
+    //> author: ""
+    //> description: "Great philosophy, corrupted by extrimists in our days."
+    //> title: "The Holy Quran"
+
+    console.log( _.size(arr) ); 
+    //> 8
+
+    console.log( _.partition(arr, function(el){
+        return el.title !== '';
+    }) );
+    //> [Array[7], Array[1]]
+
+    console.log( _.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]) );
+    //> [1, 2]
+
+    var mouseTracker = _.throttle(function(e){ // allows to run fn once every 'wait' seconds
+        var mx = document.querySelector('.mouse-x'),
+            my = document.querySelector('.mouse-y');
+        mx.textContent = e.clientX;
+        my.textContent = e.clientY;
+    }, 200);
+    document.addEventListener('mousemove', mouseTracker);
+
+    console.log( _.functions(printer) );
+    //> ["formList", "loadList", "printRecord", "renderToDOM", "sendToDOM", "truncStr"]
+};
