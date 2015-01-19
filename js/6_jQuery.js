@@ -175,7 +175,7 @@ function bindEvents(){
             'top': top,
             'left': left
         })
-    },function(e){
+    }, function(e){
         $('.tooltip').css({
             'display': 'none',
         });
@@ -199,11 +199,22 @@ function bindEvents(){
 
     $('.bookslist').on('domChange', '.book', function(e){  // handling custom event
         console.log(e.target);
-    })
+    });
 }
 
 $(document).ready(function(){
-    $(document).one('eventInit', function(){  //event will be handled only once
+    $(document).one('eventInit', function(){  // event will be handled only once
         bindEvents();
+    });
+
+    $('#testForm').on('submit', function(e){
+        e.preventDefault();
+        console.log($('#testForm').serialize());  // serializes form to url query string
+        //> login2=qwe&pwd2=qwe&comment2=qwe
+        var serialized = $('#testForm').serializeArray();
+        console.log(serialized);  // serializes form to arrayof object (JSON) format
+        //> [{"login2": "qwe"},{"pwd2": "qwe"},{"comment2": "qwe"}]
+        console.log($.param(serialized));  // serializes json to url query string; performs deep serialization
+        //> login2=qwe&pwd2=qwe&comment2=qwe
     });
 });

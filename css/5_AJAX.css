@@ -32,7 +32,12 @@ button:hover {
     background-color: hsl(200, 90%, 70%);
 }
 input, textarea {
+    width: 20em;
+    height: 2em;
     margin-bottom: 1em;
+}
+textarea {
+    height: 5em;
 }
 
 .wrapper {

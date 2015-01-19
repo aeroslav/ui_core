@@ -16,15 +16,25 @@
         <hr>
 
         <p>
-            <input type="text" id="login"><br>
-            <input type="text" id="pwd"><br>
-            <textarea  id="comment"></textarea><br>
+            <input type="text" id="login" name="login"><br>
+            <input type="text" id="pwd" name="pwd"><br>
+            <textarea  id="comment" name="comment"></textarea><br>
         </p>
 
         <p>
-            <button type="submit" class="btn-postJSON">Send message</button><br>
+            <button class="btn-postJSON">Send message</button><br>
         </p>
         <p class="responseText"></p>
+
+        <p>
+            <form id="testForm" action="javascript:alert( 'success!' );">
+                <input type="text" id="login2" name="login2"><br>
+                <input type="text" id="pwd2" name="pwd2"><br>
+                <textarea  id="comment2" name="comment2"></textarea><br>
+                <button type="submit">Test values in form</button>
+            </form>
+        </p>
+        <p class="testFormText"></p>
 
     </div>
 
