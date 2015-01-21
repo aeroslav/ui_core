@@ -48,6 +48,7 @@
 		+-3	DOM change
 	+-4	underscore.js
 -5	19 Jan
-	-4	require.js
+	+-4	require.js
 		-2	concatenation?
-	-4	custom modules
+	+-4	custom modules
+	-4	shim

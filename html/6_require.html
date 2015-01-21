@@ -3,12 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>require.js testing</title>
+    <link rel="stylesheet" href="../css/6_require.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
 </head>
 <body>
     <h1>Require.js</h1>
+    <p>Look in the console!</p>
     <p>
         <textarea id="txt" cols="30" rows="10"></textarea>
     </p>
+    <div class="results">
+        <p class="results-words">Words in string: <span></span></p>
+        <p class="results-wordsTotal">Words total: <span></span></p>
+        <p class="results-numbers">Numbers in string: <span></span></p>
+        <p class="results-numbersTotal">Numbers total: <span></span></p>
+        <p class="results-longestWord">Longest word: <span></span></p>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Launch demo modal
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    Modal window
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script data-main="../js/6_require.js" src="../js/require.js"></script>
 </body>
 </html>

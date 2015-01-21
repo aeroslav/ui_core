@@ -1,0 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+textarea {
+    width: 33%;
+    height: 150px;
+    resize: none;
+    outline: 0;
+    border: 2px solid hsl(10, 50%, 80%);
+    box-shadow: 3px 3px 2px hsl(20, 10%, 60%)
+}
