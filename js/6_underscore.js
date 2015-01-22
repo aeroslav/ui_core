@@ -4,6 +4,7 @@
 var printer = {
     elName: null,
     booksList: null,
+
     truncStr: function(str,lng) {
         if (str.length>lng) {
             str = str.substr(0,lng) + '&hellip;';
@@ -11,9 +12,11 @@ var printer = {
         } else
             return str;
     },
+
     loadList: function(json){
         this.booksList = JSON.parse(json);
     },
+
     printRecord: function(el, tags, lengths){
 
         var tpl = _.template(document.querySelector('.book-template').innerHTML, {variable: 'data'}), // get template from DOM by selector, set name for inner variable, in which passed object will be stored, and prepare for rendering
@@ -21,12 +24,18 @@ var printer = {
             rec = document.createElement('li'),
             tplData;
 
+        console.log(this.truncStr);
+
         if (_.isObject(el)&&(el.title !== '')) {
+            var keys = _.keys(el);
+
+            _.each(keys, function (key, i){
+                el[key] = this.truncStr(el[key], lengths[i]);
+            }, this);
             tplData = {
                 el: el,
-                tags: tags,
-                lengths: lengths
-            }
+                tags: tags
+            };
 
             rec.className = 'book cf';
             rec.innerHTML = tpl(tplData); // render template with passed data
@@ -35,6 +44,7 @@ var printer = {
         } else
             return false;
     },
+
     formList: function() {
         var list = document.createDocumentFragment();
         _.each(this.booksList, function(el) {
@@ -46,12 +56,14 @@ var printer = {
 
         return list;
     },
+
     sendToDOM: function(node){
         var where = this.elName;
         if (node instanceof Node) {
             where.appendChild(node);
         }
     },
+
     renderToDOM: function() {
         if (this.booksList !== null) {
             this.elName.innerHTML = '';

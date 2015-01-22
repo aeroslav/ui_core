@@ -16,6 +16,6 @@ define(function(require) {
         app.showResults($('.results span'));
     });
     $('#myModal').on('shown.bs.modal', function () {
-        $('#myInput').focus()
-    })
+        $('#myInput').focus();
+    });
 });

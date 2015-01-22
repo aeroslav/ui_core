@@ -16,7 +16,7 @@
         <p>
             <button class="btn-getJSON">GET JSON</button><br>
         </p>
-            <div class="bookslist"></div>
+            <ul class="bookslist"></ul>
         <hr>
 
         <p>
@@ -35,16 +35,9 @@
     <script src='../js/underscore-min.js'></script>
     <script src='../js/6_underscore.js'></script>
     <script type='text/template' class='book-template'>
-        <% function truncStr(str, lng){
-            if (str.length>lng) {
-                str = str.substr(0,lng) + '&hellip;';
-                return str;
-            } else
-                return str;
-        };
-        var keys = _.keys(data.el);
+        <% var keys = _.keys(data.el);
         _.each(keys, function (key, i){ %>
-            <<%=data.tags[i]%> class='book-<%=key%>'><%-truncStr(data.el[key], data.lengths[i])%></<%=data.tags[i]%>>
+            <<%=data.tags[i]%> class='book-<%=key%>'><%=data.el[key]%></<%=data.tags[i]%>>
         <% }); %>
     </script>
 </body>
