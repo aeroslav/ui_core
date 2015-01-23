@@ -7,8 +7,7 @@ define(function(require){
     var searchResults = new SearchResults({ url: '/books.json'}), //collection of books
         searchResultsList = new SearchResultsList({ //view for list of books
             el: $('.searchResultsList'),
-            collection: searchResults,
-            curCollection: new SearchResults( {url: '' } )
+            collection: searchResults
         }),
         searchControl = new SearchControl({
             el: $('.searchControl'),

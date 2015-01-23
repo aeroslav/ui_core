@@ -2,15 +2,14 @@ define(function(require){
     'use strict';
 
     var Backbone = require('backbone'),
+        SearchResults = require('collections/searchResults'),
         tplSearchResultsList = require('text!../../templates/searchResult.tpl');
 
     var SearchResultsList = Backbone.View.extend({
 
         initialize: function(opt) {
-            console.log('init SearchResultsList');
             this.tpl = _.template(tplSearchResultsList, {variable: 'data'});
-            this.collection.bind('change', this.render, this);
-            this.curCollection = opt.curCollection;
+            this.listenTo(this.collection, 'change', this.render);
         },
 
         truncStr: function(str,lng) {
@@ -45,10 +44,10 @@ define(function(require){
                 return false;
         },
 
-        render: function() {
+        render: function(coll) {
             console.log('render SearchResultsList');
             var renderedList = document.createDocumentFragment();
-            _.each(this.curCollection.models, function(el) {
+            _.each(coll.models, function(el) {
                 var record = this.renderItem(el.attributes, ['span','span','p'], [25, 25, 150]);
                 if (record) {
                     renderedList.appendChild(record);
@@ -59,15 +58,15 @@ define(function(require){
         },
 
         filterByStr: function(str, isAuthorNeeded) {
-            this.curCollection.models = _.filter(this.collection.models, function(el) {
-                console.log('filtering:', str, isAuthorNeeded);
+            var curCollection = new SearchResults();
+            curCollection.models = _.filter(this.collection.models, function(el) {
                 if (str === '') return false;
                 if (el.attributes.author === '' && isAuthorNeeded) return false;
                 if (el.attributes.title.toLowerCase().search(str.toLowerCase()) === -1) {
                     return false
                 } else return true;
             });
-            this.render();
+            this.render(curCollection);
         }
     });
 
