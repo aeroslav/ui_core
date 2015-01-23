@@ -28,6 +28,16 @@ var printer = {
             this.booksList = JSON.parse(list);
         }
     },
+    formList: function() {
+        var list = document.createDocumentFragment();
+        this.booksList.forEach(function(el) {
+            var record = this.printRecord(el);
+            if (record) {
+                list.appendChild(record);
+            }
+        }, this);
+        return list;
+    },
     printRecord: function(el){
         var df = document.createDocumentFragment(),
             rec,
@@ -45,7 +55,7 @@ var printer = {
                     this.lengths = lengths;
                 }
             };
-            
+
         if (this.isObject(el)&&(el.title !== '')) {
             rec = document.createElement('li'),
 
@@ -64,16 +74,6 @@ var printer = {
             return df;
         } else
             return false;
-    },
-    formList: function() {
-        var list = document.createDocumentFragment();
-        this.booksList.forEach(function(el) {
-            var record = this.printRecord(el);
-            if (record) {
-                list.appendChild(record);
-            }
-        }, this);
-        return list;
     },
     sendToDOM: function(node){
         var where = this.elName;

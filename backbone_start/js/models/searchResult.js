@@ -4,10 +4,9 @@ define(function(require){
 
     var SearchResult = Backbone.Model.extend({
         defaults: {
-
-        },
-        initialize: function(){
-
+            title: '',
+            author: '',
+            description: ''
         }
     });
 

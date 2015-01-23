@@ -17,6 +17,18 @@ var printer = {
         this.booksList = JSON.parse(json);
     },
 
+    formList: function() {
+        var list = document.createDocumentFragment();
+        _.each(this.booksList, function(el) {
+            var record = this.printRecord(el, ['span','span','p'], [25, 25, 150]);
+            if (record) {
+                list.appendChild(record);
+            }
+        }, this);
+
+        return list;
+    },
+
     printRecord: function(el, tags, lengths){
 
         var tpl = _.template(document.querySelector('.book-template').innerHTML, {variable: 'data'}), // get template from DOM by selector, set name for inner variable, in which passed object will be stored, and prepare for rendering
@@ -43,18 +55,6 @@ var printer = {
             return df;
         } else
             return false;
-    },
-
-    formList: function() {
-        var list = document.createDocumentFragment();
-        _.each(this.booksList, function(el) {
-            var record = this.printRecord(el, ['span','span','p'], [25, 25, 150]);
-            if (record) {
-                list.appendChild(record);
-            }
-        }, this);
-
-        return list;
     },
 
     sendToDOM: function(node){

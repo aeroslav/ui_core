@@ -6,11 +6,11 @@ define(function(require){
 
     var SearchResultsList = Backbone.View.extend({
 
-        initialize: function(searchResultsCollection) {
+        initialize: function(opt) {
             console.log('init SearchResultsList');
-            this.searchResultsList = searchResultsCollection;
             this.tpl = _.template(tplSearchResultsList, {variable: 'data'});
-            this.render();
+            this.collection.bind('change', this.render, this);
+            this.curCollection = opt.curCollection;
         },
 
         truncStr: function(str,lng) {
@@ -48,18 +48,26 @@ define(function(require){
         render: function() {
             console.log('render SearchResultsList');
             var renderedList = document.createDocumentFragment();
-            _.each(this.searchResultsList, function(el) {
-                var record = this.renderItem(el, ['span','span','p'], [25, 25, 150]);
+            _.each(this.curCollection.models, function(el) {
+                var record = this.renderItem(el.attributes, ['span','span','p'], [25, 25, 150]);
                 if (record) {
                     renderedList.appendChild(record);
                 }
             }, this);
-
+            this.$el.empty();
             this.$el.append(renderedList);
         },
 
-        updateView: function() {
-            console.log('update SearchResultsList');
+        filterByStr: function(str, isAuthorNeeded) {
+            this.curCollection.models = _.filter(this.collection.models, function(el) {
+                console.log('filtering:', str, isAuthorNeeded);
+                if (str === '') return false;
+                if (el.attributes.author === '' && isAuthorNeeded) return false;
+                if (el.attributes.title.toLowerCase().search(str.toLowerCase()) === -1) {
+                    return false
+                } else return true;
+            });
+            this.render();
         }
     });
 
