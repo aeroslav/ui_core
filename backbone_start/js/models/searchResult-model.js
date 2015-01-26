@@ -2,7 +2,7 @@ define(function(require){
     'use strict';
     var Backbone = require('backbone');
 
-    var SearchResult = Backbone.Model.extend({
+    var SearchResultModel = Backbone.Model.extend({
         defaults: {
             title: '',
             author: '',
@@ -10,5 +10,5 @@ define(function(require){
         }
     });
 
-    return SearchResult;
+    return SearchResultModel;
 });

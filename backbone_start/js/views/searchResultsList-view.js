@@ -2,13 +2,13 @@ define(function(require){
     'use strict';
 
     var Backbone = require('backbone'),
-        SearchResults = require('collections/searchResults'),
-        tplSearchResultsList = require('text!../../templates/searchResult.tpl');
+        SearchResultsCollection = require('collections/searchResults-collection'),
+        tplSearchResult = require('text!../../templates/searchResult.tpl');
 
-    var SearchResultsList = Backbone.View.extend({
+    var SearchResultsListView = Backbone.View.extend({
 
         initialize: function(opt) {
-            this.tpl = _.template(tplSearchResultsList, {variable: 'data'});
+            this.tpl = _.template(tplSearchResult, {variable: 'data'});
             this.listenTo(this.collection, 'change', this.render);
         },
 
@@ -58,7 +58,7 @@ define(function(require){
         },
 
         filterByStr: function(str, isAuthorNeeded) {
-            var curCollection = new SearchResults();
+            var curCollection = new SearchResultsCollection();
             curCollection.models = _.filter(this.collection.models, function(el) {
                 if (str === '') return false;
                 if (el.attributes.author === '' && isAuthorNeeded) return false;
@@ -70,5 +70,5 @@ define(function(require){
         }
     });
 
-    return SearchResultsList;
+    return SearchResultsListView;
 });

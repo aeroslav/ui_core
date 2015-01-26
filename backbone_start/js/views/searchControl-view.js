@@ -4,7 +4,15 @@ define(function(require){
     var Backbone = require('backbone'),
         tplSearchControl = require('text!../../templates/searchControl.tpl');
 
-    var SearchControl = Backbone.View.extend({
+    var SearchControlView = Backbone.View.extend({
+
+        events: {
+            'focus #searchField-input': 'focusSearchInput',
+            'blur #searchField-input': 'blurSearchInput',
+            'keypress #searchField-input': 'changeSearchInput',
+            'keydown #searchField-input': 'eraseSearchInput',
+            'change #searchControl-authors': 'changeSearchInput'
+        },
 
         initialize: function(opt){
             this.tpl = _.template(tplSearchControl);
@@ -14,13 +22,6 @@ define(function(require){
 
         render: function() {
             this.$el.html(this.tpl());
-        },
-        events: {
-            'focus #searchField-input': 'focusSearchInput',
-            'blur #searchField-input': 'blurSearchInput',
-            'keypress #searchField-input': 'changeSearchInput',
-            'keydown #searchField-input': 'eraseSearchInput',
-            'change #searchControl-authors': 'changeSearchInput'
         },
 
         focusSearchInput: function() {
@@ -47,5 +48,6 @@ define(function(require){
             }, 200);
         }()
     });
-    return SearchControl;
+
+    return SearchControlView;
 });

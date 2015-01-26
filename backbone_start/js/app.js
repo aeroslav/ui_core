@@ -1,17 +1,14 @@
 define(function(require){
     var b = require('backbone'),
-        SearchResultsList = require('views/searchResultsList'),
-        SearchControl = require('views/searchControl'),
-        SearchResults = require('collections/searchResults');
+        AppView = require('views/appView-view'),
+        SearchResultsCollection = require('collections/searchResults-collection');
 
-    var searchResults = new SearchResults({ url: '/books.json'}), //collection of books
-        searchResultsList = new SearchResultsList({ //view for list of books
-            el: $('.searchResultsList'),
-            collection: searchResults
-        }),
-        searchControl = new SearchControl({
-            el: $('.searchControl'),
-            searchResultsView: searchResultsList
-        }); //view for controls
-    searchResults.loadList();
+    var searchResultsCollection = new SearchResultsCollection({ url: '/books.json'}), //collection of books
+        appView = new AppView({
+            resListCollection: searchResultsCollection,
+            controlViewSel: '.searchControl',
+            resListViewSel: '.searchResultsList'
+        });
+
+    searchResultsCollection.loadList();
 });
